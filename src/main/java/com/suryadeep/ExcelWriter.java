@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.io.File;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelWriter {
@@ -36,16 +37,44 @@ public class ExcelWriter {
         }
     }
 
-    //Method to create a Excel Worksheet in Excel Workbook
-    void createExcelWorksheet(String name) {
-        name = addXLSXExtension(name);
+    // Method to create a Excel Worksheet in Excel Workbook
+    @SuppressWarnings("unused")
+    void createExcelWorksheet(String sheetName, String workbookName) {
+        workbookName = addXLSXExtension(workbookName);
+
+        XSSFWorkbook wb = new XSSFWorkbook();
+        try {
+            XSSFSheet sheet1 = wb.createSheet(sheetName);
+            FileOutputStream fileOut = new FileOutputStream(workbookName);
+            wb.write(fileOut);
+            fileOut.close();
+            wb.close();
+        } catch(Exception ex) {
+            System.out.println("Error while creating sheet");
+        }
+    }
+
+    @SuppressWarnings("unused")
+    void createExcelWorksheet(String sheetName) {
+        sheetName = addXLSXExtension(sheetName);
+
+        XSSFWorkbook wb = new XSSFWorkbook();
+        try {
+            XSSFSheet sheet1 = wb.createSheet(sheetName);
+            FileOutputStream fileOut = new FileOutputStream(sheetName);
+            wb.write(fileOut);
+            fileOut.close();
+            wb.close();
+        } catch(Exception ex) {
+            System.out.println("Error while creating sheet");
+        }
     }
 
     String addXLSXExtension(String name) {
-        if (FilenameUtils.getExtension(name)!=".xlsx") {
-            name = name+".xlsx";
+        if (FilenameUtils.getExtension(name) != ".xlsx") {
+            name = name + ".xlsx";
             return name;
-        }else {
+        } else {
             return name;
         }
     }
