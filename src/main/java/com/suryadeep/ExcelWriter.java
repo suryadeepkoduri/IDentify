@@ -80,7 +80,7 @@ public class ExcelWriter {
     }
 
     public ExcelWriter() {
-
+        createExcelWorksheet(getDate());
     }
 
 }
