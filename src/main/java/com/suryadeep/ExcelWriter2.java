@@ -21,6 +21,32 @@ public class ExcelWriter2 {
     Sheet sheet = workbook.createSheet("Sheet-1");
     int rowNo = 0;
 
+    // Corrected by chatgpt
+    /*
+     * Notes
+     * 
+     *  ExcelWriter2() throws FileNotFoundException, IOException {
+            String name = addXLSXExtension(getDate());
+            sheetHeader();
+
+            File f = new File(name);
+            if (f.exists()) {
+                return;
+            }
+
+
+            try (FileOutputStream fileOut = new FileOutputStream(name)) {
+                workbook.write(fileOut);
+                System.out.println("File Created by constructor");
+            }
+        }
+
+     * 
+     * The constructor is creating a new workbook and sheet every time it's called, even if the file already exists. 
+     * It should only create a new workbook if the file does not exist. Additionally, it should load an existing workbook if the file already exists.
+     * 
+     * 
+     */
     ExcelWriter2() throws IOException {
     String name = addXLSXExtension(getDate());
 
@@ -41,13 +67,17 @@ public class ExcelWriter2 {
 }
 
 
-    void enterData(String rollNo, String name) throws FileNotFoundException, IOException {
-        Row row = sheet.createRow(sheet.getLastRowNum()+1);
+    void enterData(String rollNo, String name) throws IOException {
+        Row row = sheet.createRow(sheet.getLastRowNum() + 1);
         row.createCell(0).setCellValue(rollNo);
         row.createCell(1).setCellValue(name);
         row.createCell(2).setCellValue(getTimeStamp());
-        writeFile();
+
+        try (FileOutputStream fileOut = new FileOutputStream(addXLSXExtension(getDate()))) {
+            workbook.write(fileOut);
+        }
     }
+
 
     void sheetHeader() {
         Row row = sheet.createRow(rowNo++);
@@ -73,13 +103,12 @@ public class ExcelWriter2 {
     }
 
     String addXLSXExtension(String name) {
-        if (FilenameUtils.getExtension(name) != ".xlsx") {
+        if (!FilenameUtils.getExtension(name).equalsIgnoreCase("xlsx")) {
             name = name + ".xlsx";
-            return name;
-        } else {
-            return name;
         }
+        return name;
     }
+    
 
     void writeFile() throws FileNotFoundException, IOException {
         String name = addXLSXExtension(getDate());
