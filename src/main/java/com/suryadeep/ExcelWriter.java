@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.io.File;
 
@@ -19,6 +20,14 @@ public class ExcelWriter {
         String formattedDate = currenDate.format(formatter);
 
         return formattedDate;
+    }
+
+    String getTimeStamp() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
+        String timeStamp = now.format(formatter);
+
+        return timeStamp;
     }
 
     // Method to create a new Excel Workbook by given name
@@ -49,7 +58,7 @@ public class ExcelWriter {
             wb.write(fileOut);
             fileOut.close();
             wb.close();
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             System.out.println("Error while creating sheet");
         }
     }
@@ -65,7 +74,7 @@ public class ExcelWriter {
             wb.write(fileOut);
             fileOut.close();
             wb.close();
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             System.out.println("Error while creating sheet");
         }
     }
