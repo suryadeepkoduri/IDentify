@@ -17,5 +17,10 @@ public class Main {
         // ew.createExcelWorksheet("sheet-2", ew.getDate());
 
         ExcelWriter2 ew2 = new ExcelWriter2();
+        // ew2.enterData("1", "alex");
+        // ew2.enterData("2", "john");
+        //ew2.enterData("3", "alexa");
+        ew2.enterData("4", "steve");
+        //  ew2.enterData("5", "adam");
     }
 }
