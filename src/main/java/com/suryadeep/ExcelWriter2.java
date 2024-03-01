@@ -1,6 +1,7 @@
 package com.suryadeep;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,21 +21,25 @@ public class ExcelWriter2 {
     Sheet sheet = workbook.createSheet("Sheet-1");
     int rowNo = 0;
 
-    ExcelWriter2() throws FileNotFoundException, IOException {
-        String name = addXLSXExtension(getDate());
+    ExcelWriter2() throws IOException {
+    String name = addXLSXExtension(getDate());
+
+    File f = new File(name);
+    if (!f.exists()) {
         sheetHeader();
-
-        File f = new File(name);
-        if (f.exists()) {
-            return;
-        }
-
 
         try (FileOutputStream fileOut = new FileOutputStream(name)) {
             workbook.write(fileOut);
             System.out.println("File Created by constructor");
         }
+    } else {
+        try (FileInputStream fileIn = new FileInputStream(name)) {
+            workbook = new XSSFWorkbook(fileIn);
+            sheet = workbook.getSheetAt(0);
+        }
     }
+}
+
 
     void enterData(String rollNo, String name) throws FileNotFoundException, IOException {
         Row row = sheet.createRow(sheet.getLastRowNum()+1);
