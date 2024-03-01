@@ -88,6 +88,10 @@ public class ExcelWriter {
         }
     }
 
+    void enterData(String rollNo,String name) {
+        
+    }
+
     public ExcelWriter() {
         createExcelWorksheet(getDate());
     }
