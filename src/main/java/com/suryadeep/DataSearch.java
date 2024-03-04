@@ -10,4 +10,8 @@ public class DataSearch {
             
         }
     }
+
+    String getStudentName(String rollNo) {
+        
+    }
 }
