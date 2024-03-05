@@ -16,7 +16,7 @@ public class Main {
         // ew.createExcelWorksheet("sheet-1", ew.getDate());
         // ew.createExcelWorksheet("sheet-2", ew.getDate());
 
-        ExcelWriter2 ew2 = new ExcelWriter2();
+        ExcelWriter ew2 = new ExcelWriter();
         // ew2.enterData("1", "alex");
         // ew2.enterData("2", "john");
         //ew2.enterData("3", "alexa");
