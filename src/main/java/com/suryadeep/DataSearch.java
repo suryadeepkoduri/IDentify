@@ -5,13 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class DataSearch {
-    DataSearch() throws FileNotFoundException, IOException {
+    public DataSearch() throws FileNotFoundException, IOException {
         try(FileInputStream fileIn = new FileInputStream("Data.xlsx")) {
             
         }
     }
 
-    String getStudentName(String rollNo) {
+    // String getStudentName(String rollNo) {
         
-    }
+    // }
 }
